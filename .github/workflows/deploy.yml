@@ -10,20 +10,26 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - name: Install dependencies
+      - name: "Install dependencies"
         run: |
           yarn install
 
-      - name: Linting
+      - name: "Linting"
         run: |
           npx svelte-check
 
-      - name: Build sources
+      - name: "Build sources"
         run: |
           yarn run build
 
-      - name: Deploy to vercel
+      - name: "Deploy to Vercel"
         run: |
-          yarn global add vercel
-          cd public
-          vercel deploy --name winalot
+          prodRun=""
+          if [[ ${GITHUB_REF} == "refs/heads/main" ]]; then
+            prodRun="--prod"
+          fi
+          npx vercel --token ${VERCEL_TOKEN} $prodRun
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
