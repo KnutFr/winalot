@@ -9,11 +9,12 @@ jobs:
     environment: prd
     runs-on: ubuntu-latest
     steps:
-      - name: Building sources
+      - uses: actions/checkout@v3
+      - name: Building sources and deploy
         run: |
-        echo "Building stuff"
-        npx svelte-check
-        yarn run build
-        yarn install -g vercel
-        cd public
-        vercel deploy --name winalot
+          echo "Building stuff"
+          npx svelte-check
+          yarn run build
+          yarn install -g vercel
+          cd public
+          vercel deploy --name winalot
