@@ -14,6 +14,7 @@ jobs:
         run: |
           echo "Building stuff"
           npx svelte-check
+          yarn ci
           yarn run build
           yarn install -g vercel
           cd public
