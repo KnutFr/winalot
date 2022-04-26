@@ -10,12 +10,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - name: Building sources and deploy
+      - name: Install dependencies
         run: |
-          echo "Building stuff"
           npx svelte-check
           yarn ci
+
+      - name: Build sources
+        run: |
           yarn run build
+
+      - name: Build sources
+        run: |
           yarn install -g vercel
           cd public
           vercel deploy --name winalot
