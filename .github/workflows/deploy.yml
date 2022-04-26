@@ -22,8 +22,8 @@ jobs:
         run: |
           yarn run build
 
-      - name: Build sources
+      - name: Deploy to vercel
         run: |
-          yarn install -g vercel
+          yarn global add vercel
           cd public
           vercel deploy --name winalot
