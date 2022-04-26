@@ -1,0 +1,19 @@
+name: Build and deploy
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-deploy:
+    environment: prd
+    runs-on: ubuntu-latest
+    steps:
+      - name: Building sources
+        run: |
+        echo "Building stuff"
+        npx svelte-check
+        yarn run build
+        yarn install -g vercel
+        cd public
+        vercel deploy --name winalot
